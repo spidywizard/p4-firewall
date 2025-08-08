@@ -1,0 +1,139 @@
+# proto-file: p4/config/v1/p4info.proto
+# proto-message: p4.config.v1.P4Info
+
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 37375156
+    name: "MyIngress.ipv4_lpm"
+    alias: "ipv4_lpm"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 28792405
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  initial_default_action {
+    action_id: 21257015
+  }
+  size: 1024
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 21668964
+    name: "MyIngress.set_allowed"
+    alias: "set_allowed"
+  }
+}
+actions {
+  preamble {
+    id: 30862886
+    name: "MyIngress.check_if_allowed"
+    alias: "check_if_allowed"
+  }
+}
+actions {
+  preamble {
+    id: 22871693
+    name: "MyIngress.check_rate"
+    alias: "check_rate"
+  }
+}
+actions {
+  preamble {
+    id: 25546865
+    name: "MyIngress.identify_h3h4_to_h1h2"
+    alias: "identify_h3h4_to_h1h2"
+  }
+}
+actions {
+  preamble {
+    id: 28792405
+    name: "MyIngress.ipv4_forward"
+    alias: "ipv4_forward"
+  }
+  params {
+    id: 1
+    name: "dstAddr"
+    bitwidth: 48
+  }
+  params {
+    id: 2
+    name: "port"
+    bitwidth: 9
+  }
+}
+registers {
+  preamble {
+    id: 380667439
+    name: "MyIngress.bloom_filter"
+    alias: "bloom_filter"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
+      }
+    }
+  }
+  size: 4096
+}
+registers {
+  preamble {
+    id: 385468748
+    name: "MyIngress.packet_counter"
+    alias: "packet_counter"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 32
+      }
+    }
+  }
+  size: 4096
+}
+registers {
+  preamble {
+    id: 377784649
+    name: "MyIngress.last_seen"
+    alias: "last_seen"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 48
+      }
+    }
+  }
+  size: 4096
+}
+type_info {
+}
