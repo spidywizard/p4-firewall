@@ -51,21 +51,25 @@ hash collisions that would let unwanted flows to pass through.
 2. You should now see a Mininet command prompt. Try to run some iperf
    TCP flows between the hosts:
 
-   TCP flows within the internal network should work:
+   Open Node h3:
    ```bash
-   mininet> iperf h1 h2
+   mininet> xterm h3
    ```
 
-   TCP flows from hosts in the internal network to the outside hosts
-   should also work:
+   Open Node h1:
    ```bash
-   mininet> iperf h1 h3
+   mininet> xterm h1
    ```
 
-   TCP flows from the outside hosts to hosts inside the
-   internal network should be blocked by the firewall:
+   
+   Check connections:
    ```bash
-   mininet> iperf h3 h1
+   mininet> pingall
+   ```
+
+   To attack on host H1:
+   ```bash
+   sudo hping3 -S -p 80 -i u(speed in microseconds) -c (no_of_packets) 10.0.1.1
    ```
 
 3. Type `exit` to leave the Mininet command line.
@@ -148,5 +152,3 @@ The architecture file can be found at: /usr/local/share/p4c/p4include/v1model.p4
 - [P4_16 and P4Runtime Documentation](https://p4.org/specs/)
 - [BMv2 Simple Switch Documentation](https://github.com/p4lang/behavioral-model/blob/master/docs/simple_switch.md)
 - [V1Model Architecture](https://github.com/p4lang/p4c/blob/master/p4include/v1model.p4)
-
-# p4-firewall# p4-firewall
