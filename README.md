@@ -1,11 +1,11 @@
 [comment]: # (SPDX-License-Identifier:  Apache-2.0)
 
-# Implementing A Basic Stateful Firewall with Rate Limiting
+# Implementing A Basic Firewall with Rate Limiting
 
 ## Introduction
 
 The objective of this exercise is to write a P4 program that
-implements a simple stateful firewall with rate limiting capabilities. 
+implements a simple firewall with rate limiting capabilities. 
 This implementation uses a bloom filter for connection tracking and 
 register-based rate limiting for external traffic control.
 
@@ -16,7 +16,7 @@ would be in a single pod of a fat tree topology.
 ![topology](./firewall-topo.png)
 
 Switch s1 will be configured with a P4 program that implements a
-simple stateful firewall (`firewall.p4`), the rest of the switches will run the
+simple firewall (`firewall.p4`), the rest of the switches will run the
 basic IPv4 router program (`basic.p4`).
 
 The firewall on s1 has the following functionality:
@@ -31,7 +31,7 @@ The firewall on s1 has the following functionality:
   flooding attacks. The system tracks packet rates per flow and drops packets 
   exceeding the configured threshold (336 packets per second).
 
-**Note**: This stateful firewall is implemented 100% in the dataplane
+**Note**: This firewall is implemented 100% in the dataplane
 using a simple bloom filter. Thus there is some probability of
 hash collisions that would let unwanted flows to pass through.
 
@@ -101,7 +101,7 @@ The complete `firewall.p4` contains the following components:
 10. Control logic that integrates firewall rules, rate limiting, and forwarding.
 
 **Key Features:**
-- **Stateful Connection Tracking**: Uses bloom filter to track established connections
+- **Connection Tracking**: Uses bloom filter to track established connections
 - **Rate Limiting**: Limits traffic from external hosts (h3/h4) to internal hosts (h1/h2)
 - **Configurable Thresholds**: Rate threshold set to 336 packets per second with 1-second time windows
 - **Hardware-Friendly**: Uses separate register arrays for high-speed P4 targets
@@ -111,7 +111,7 @@ The complete `firewall.p4` contains the following components:
 The implementation provides protection against:
 1. **Unauthorized Connections**: External hosts cannot initiate connections to internal network
 2. **Rate-based Attacks**: Excessive traffic from external hosts is automatically dropped
-3. **Stateful Tracking**: Only allows return traffic for established connections
+3. **Tracking**: Only allows return traffic for established connections
 
 Test various scenarios:
 - Normal traffic between internal hosts (should work)
